@@ -3,10 +3,6 @@ class Note {
         this.titel = titel;
         this.inhalt = inhalt;
     }
-
-    getTitel() {
-        return this.titel;
-    }
 }
 
 module.exports = Note;
