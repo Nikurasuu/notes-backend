@@ -12,7 +12,13 @@ class NotesStore{
     }
 
     deleteNote(titel) {
-        this.notes = this.notes.filter(note => note.titel !== titel);
+        const result = this.notes.filter(checkNoteTitel);
+
+        function checkNoteTitel(note) {
+            return note.titel !== titel;
+        }
+
+        console.log(result)
     }
 }
 
