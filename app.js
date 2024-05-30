@@ -8,8 +8,8 @@ var app = express();
 
 app.use(express.json())
 
-app.get('/notes', (req, res) => {
-    res.send(notesStore.getNotes())
+app.get('/notes', async (req, res) => {
+    res.send(await notesStore.getNotes())
 })
 
 app.post('/notes', (req, res) => {

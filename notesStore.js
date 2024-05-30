@@ -1,24 +1,43 @@
+var mysql = require('mysql')
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "tiger",
+    database: "notes"
+});
+
 class NotesStore{
     constructor() {
-        this.notes = [];
+        con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connected!");
+        });
     }
 
-    getNotes(){
-        return this.notes;
+    async getNotes(){
+        return new Promise((resolve, reject) => {
+            con.query('SELECT * FROM notes', function (err, result) {
+                if (err) reject(err);
+                resolve(result);
+            });
+        });
     }
 
-    addNote(note){
-        this.notes.push(note);
+    addNote(note) {
+        const sql = 'INSERT INTO notes SET ?';
+        con.query(sql, note, function (err, result) {
+            if (err) reject(err);
+            resolve(result);
+        });
     }
 
     deleteNote(titel) {
-        const result = this.notes.filter(checkNoteTitel);
-
-        function checkNoteTitel(note) {
-            return note.titel !== titel;
-        }
-
-        console.log(result)
+        const sql = 'DELETE FROM notes WHERE titel = ?';
+        con.query(sql, [titel], function (err, result) {
+            if (err) reject(err);
+            resolve(result);
+        });
     }
 }
 
