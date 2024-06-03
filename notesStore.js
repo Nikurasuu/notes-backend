@@ -28,7 +28,6 @@ class NotesStore{
         const sql = 'INSERT INTO notes SET ?';
         con.query(sql, note, function (err, result) {
             if (err) reject(err);
-            resolve(result);
         });
     }
 
@@ -36,7 +35,6 @@ class NotesStore{
         const sql = 'DELETE FROM notes WHERE titel = ?';
         con.query(sql, [titel], function (err, result) {
             if (err) reject(err);
-            resolve(result);
         });
     }
 }
